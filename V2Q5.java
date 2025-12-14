@@ -36,6 +36,11 @@ public class V2Q5 {
     }
     
     public static String compress(String s){
+        for (int i = 0; i<s.length(); i++){
+            if (s.charAt(i) >= '0' && s.charAt(i)<='9') //Text should not contain numbers
+                return "Invalid encoding.";
+        }
+        
         int count = 1; //by default a character occurs once
         String compressed = "";
         for (int i = 0; i<s.length()-1; i++){
@@ -52,10 +57,17 @@ public class V2Q5 {
     }
     
     public static String decompress(String s){
+        if (s.charAt(0)<'0' || s.charAt(0)>'9')
+            return "Invalid encoding."; //first character should be a digit(count)
+        
         for (int i = 0; i<s.length()-1; i++){
-            if (s.charAt(i) >= '0' && s.charAt(i) <= '9'
+            if ((s.charAt(i) >= '0' && s.charAt(i) <= '9'
                 &&    
-                s.charAt(i+1) >= '0' && s.charAt(i+1) <= '9'){ //check validity (2 numbers can't be next to each other)
+                s.charAt(i+1) >= '0' && s.charAt(i+1) <= '9')//check validity (2 numbers can't be next to each other)
+                ||
+                ((s.charAt(i) < '0' || s.charAt(i) > '9')
+                &&    
+                (s.charAt(i+1) < '0' || s.charAt(i+1) > '9'))){ //check validity (2 letters can't be next to each other)
                 return "Invalid encoding.";
             }    
         }
